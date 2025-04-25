@@ -76,7 +76,7 @@ ContaPoupanca --> Conta
 ## 4. Menu do Sistema
 
 <div align="center">
-   <img src="C:\Users\User\Documents\menu_console.png" title="Exemplo do menu no console" width="90%"/>
+   <img src= https://i.ibb.co/FqCbp69w/menu-console.png title="Exemplo do menu no console" width="90%"/>
 </div>
 
 ---
