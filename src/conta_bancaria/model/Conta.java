@@ -23,7 +23,7 @@ public class Conta {
 	
 	
 	//Metodos Bancários
-	public boolean sacar(float valor) {
+	public boolean sacar(double valor) {
 		if(this.saldo < valor) {
 			System.out.println("\nSaldo insuficiente");
 			return false;
@@ -33,10 +33,12 @@ public class Conta {
 		return true;
 	}
 	
-	public void depositar(float valor) {
+	public void depositar(double valor) {
 		if(valor <=0)
-		System.out.println("Valor Inválido!");	
-			
+			System.out.println("Valor Inválido!");	
+		else
+			System.out.println("Valor depositado com sucesso!");
+		
 		this.saldo += valor;
 	}
 	
@@ -100,7 +102,7 @@ public class Conta {
 		return saldo;
 	}
 
-	public void setSaldo(float saldo) {
+	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
 	
