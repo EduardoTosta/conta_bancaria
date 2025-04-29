@@ -1,26 +1,12 @@
 package conta_bancaria;
 
-import conta_bancaria.model.Conta;
 import conta_bancaria.model.ContaCorrente;
 import conta_bancaria.model.ContaPoupanca;
 import conta_bancaria.util.Cores;
 
 public class Menu {
 	public static void main(String[] args) {
-		
-		//Instanciar um objeto da classe conta
-		Conta c1 = new Conta(01, 123, 1, "Eduardo", 1000000);
-		
-		c1.sacar(500);
-		c1.vizualizar(); 
-		
-		c1.depositar(200);
-		c1.vizualizar();
-		
-		//Alterar proprietário
-		c1.setTitular("Eduardo Tosta");
-		c1.vizualizar();
-		
+			
 		//Instanciando um objeto da classe ContaCorrente
 		ContaCorrente cc1 = new ContaCorrente(02,456 ,1 , "João", 600000, 60000);
 		
