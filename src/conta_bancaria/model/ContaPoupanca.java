@@ -40,7 +40,7 @@ public class ContaPoupanca extends Conta {
 	public void vizualizar() {
 		calculoJuros();
 		super.vizualizar();
-		System.out.println("Dia de Criação:       " + this.diaAniversario);
+		System.out.println("Aniversário da conta:       " + this.diaAniversario);
 	}
 	
 	
