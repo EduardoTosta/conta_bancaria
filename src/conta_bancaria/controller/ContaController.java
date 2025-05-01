@@ -79,5 +79,20 @@ public class ContaController implements ContaRepository{
 		}
 		return null;
 	}
-	
+
+	@Override
+	public Conta acessar(int numero) {
+	    var conta = buscarNaCollection(numero);
+
+	    if (conta != null) {
+	        conta.vizualizar();
+	        return conta;
+	    } else {
+	        System.out.printf("\n A conta número: %d não foi encontrada!\n", numero);
+	        return null;
+	    }
+	}
+		
 }
+	
+

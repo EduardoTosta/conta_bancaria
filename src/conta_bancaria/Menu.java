@@ -2,6 +2,7 @@ package conta_bancaria;
 import java.io.IOException;
 import java.util.Scanner;
 
+import conta_bancaria.model.Conta;
 import conta_bancaria.model.ContaCorrente;
 import conta_bancaria.model.ContaPoupanca;
 import conta_bancaria.util.Cores;
@@ -18,18 +19,91 @@ public class Menu {
 		String titular;
 		double saldo, limite;
 		
-		System.out.println("Opcao: ");
-		opcao = leia.nextInt();
-		
 		//dados de contas para testes
 		ContaCorrente cc1 = new ContaCorrente(contas.gerarNumero(), 123, 1, "João da Silva", 1000.00f, 100.00f);
 		contas.cadastrar(cc1);
 		ContaPoupanca cp1 = new ContaPoupanca(contas.gerarNumero(), 123, 2, "Maria da Silva", 1000.00f, 12);
 		contas.cadastrar(cp1);
 		
+		
 		while(true) {
+			menuLogin();
+			opcao = leia.nextInt(); 
+			
 			switch(opcao) {
 			case 1:
+				System.out.println("ACESSAR CONTA");
+				System.out.println("Digite o numero da conta que deseja Acessar: ");
+				numero = leia.nextInt();
+
+				Conta contaLogada = contas.acessar(numero);
+				keyPress();
+				
+				if(contaLogada != null) {
+					int opcaoMenuPrincipal;
+					while(true) {
+						menuPrincipal();
+						opcaoMenuPrincipal = leia.nextInt();
+						
+						switch(opcaoMenuPrincipal) {
+						case 1:
+							System.out.println("DEPÓSITO");
+				            System.out.print("Digite o número da conta: ");
+				            numero = leia.nextInt();
+				            
+				            System.out.print("Digite o valor do depósito: ");
+				            saldo = leia.nextDouble();
+				            
+				            contas.depositar(numero, saldo);
+				            
+				            keyPress();
+				            break;
+						
+						case 2:
+							System.out.println("SAQUE");
+				            System.out.print("Digite o número da conta: ");
+				            numero = leia.nextInt();
+				            
+				            System.out.print("Digite o valor do saque: ");
+				            saldo = leia.nextDouble();
+				            
+				            contas.sacar(numero, saldo);
+				            
+				            keyPress();
+				            break;
+						
+						case 3:
+							
+							keyPress();
+							break;
+							
+						case 4:
+							
+							keyPress();
+							break;
+						
+						case 5:
+				            System.out.println("VOLTANDO AO MENU ANTERIOR...");
+				            return; // volta para o menu anterior
+				            
+						case 0:
+				            System.out.println("SAINDO DO SISTEMA...");
+				            leia.close();
+				            System.exit(0);
+				            break;
+				            
+						default:
+				            System.out.println("Opção inválida. Tente novamente.");
+				            keyPress();
+						}
+						
+					}
+				}
+						
+				keyPress();
+				break;
+			
+			case 2:
 				System.out.println("CRIAR CONTA");
 				
 				System.out.println("Digite o numero da agencia: ");
@@ -61,31 +135,26 @@ public class Menu {
 				
 				keyPress();
 				break;
+				
+			case 0:
+				System.out.println("Fim da execução");
+				sobre();
+				leia.close();	
+				return;
 			
-			case 2:
-				System.out.println("LISTAR CONTAS");
-				contas.listarTodas();
-				
-				
-				keyPress();
-				break;
-				
-				
-			case 3:
-				System.out.println("BUSCAR CONTA");
-				System.out.println("Digite o numero da conta que deseja buscar: ");
-				numero = leia.nextInt();
-				
-				contas.procurarPorNumero(numero);
-				
-				keyPress();
-				break;
+			default:
+			    System.out.println("Opção inválida. Tente novamente.");
+			    keyPress();
+			    break;
 			}
-			leia.close();
+			
 		}
 		
-					
-		/*
+				    
+	     
+	}
+	
+	public static void menuLogin() {
 		 System.out.println(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_GREEN_BOLD);
 		 System.out.println(" ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■■ ");
 		 System.out.println(" ■                                              ■ ");
@@ -94,7 +163,7 @@ public class Menu {
 	     System.out.println(" ■  ║          BANCO DO BRAZIL COM Z         ║  ■ ");
 	     System.out.println(" ■  ║                                        ║  ■ ");
 	     System.out.println(" ■  ╠════════════════════════════════════════╣  ■ ");
-	     System.out.println(" ■  ║  1 - Login                             ║  ■ ");
+	     System.out.println(" ■  ║  1 - Acessar conta                     ║  ■ ");
 	     System.out.println(" ■  ║  2 - Criar conta                       ║  ■ ");
 	     System.out.println(" ■  ║  0 - Encerrar                          ║  ■ ");
 	     System.out.println(" ■  ╚════════════════════════════════════════╝  ■ ");
@@ -103,56 +172,52 @@ public class Menu {
 	     System.out.println("==================================================");
 	     System.out.println(" Digite a opção desejada:                         ");
 	     System.out.println("==================================================");
-		
-
-	     
-		 System.out.println(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_GREEN_BOLD);
-		 System.out.println(" ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■■ ");
-		 System.out.println(" ■                                              ■ ");
-		 System.out.println(" ■  ╔════════════════════════════════════════╗  ■ ");
-		 System.out.println(" ■  ║                                        ║  ■ ");
-	     System.out.println(" ■  ║          BANCO DO BRAZIL COM Z         ║  ■ ");
-	     System.out.println(" ■  ║                                        ║  ■ ");
-	     System.out.println(" ■  ╠════════════════════════════════════════╣  ■ ");
-	     System.out.println(" ■  ║  1 - Depositar                         ║  ■ ");
-	     System.out.println(" ■  ║  2 - Sacar                             ║  ■ ");
-	     System.out.println(" ■  ║  3 - Transferir valor entre contas     ║  ■ ");
-	     System.out.println(" ■  ║  4 - Atualizar Dados da Conta          ║  ■ ");
-	     System.out.println(" ■  ║  5 - Voltar                            ║  ■ ");
-	     System.out.println(" ■  ║  0 - Sair                              ║  ■ ");
-	     System.out.println(" ■  ╚════════════════════════════════════════╝  ■ ");
-		 System.out.println(" ■                                              ■ ");
-	     System.out.println(" ■■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ");
-	     System.out.println("==================================================");
-	     System.out.println(" Digite a opção desejada:                         ");
-	     System.out.println("==================================================");
-	     
-			
-			
-		 System.out.println(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_GREEN_BOLD);
-		 System.out.println(" ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■■ ");
-		 System.out.println(" ■                                              ■ ");
-		 System.out.println(" ■  ╔════════════════════════════════════════╗  ■ ");
-		 System.out.println(" ■  ║                                        ║  ■ ");
-	     System.out.println(" ■  ║          BANCO DO BRAZIL COM Z         ║  ■ ");
-	     System.out.println(" ■  ║                                        ║  ■ ");
-	     System.out.println(" ■  ╠════════════════════════════════════════╣  ■ ");
-	     System.out.println(" ■  ║  1 - Listar todas as contas            ║  ■ ");
-	     System.out.println(" ■  ║  2 - Buscar Conta por Número           ║  ■ ");
-	     System.out.println(" ■  ║  0 - Voltar                            ║  ■ ");
-	     System.out.println(" ■  ╚════════════════════════════════════════╝  ■ ");
-		 System.out.println(" ■                                              ■ ");
-	     System.out.println(" ■■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ");
-	     System.out.println("==================================================");
-	     System.out.println(" Digite a opção desejada:                         ");
-	     System.out.println("==================================================");
-	     
-	     */
-	     
-	     
-	     
-	     
 	}
+	
+	public static void menuPrincipal() {
+			 System.out.println(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_GREEN_BOLD);
+			 System.out.println(" ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■■ ");
+			 System.out.println(" ■                                              ■ ");
+			 System.out.println(" ■  ╔════════════════════════════════════════╗  ■ ");
+			 System.out.println(" ■  ║                                        ║  ■ ");
+		     System.out.println(" ■  ║          BANCO DO BRAZIL COM Z         ║  ■ ");
+		     System.out.println(" ■  ║                                        ║  ■ ");
+		     System.out.println(" ■  ╠════════════════════════════════════════╣  ■ ");
+		     System.out.println(" ■  ║  1 - Depositar                         ║  ■ ");
+		     System.out.println(" ■  ║  2 - Sacar                             ║  ■ ");
+		     System.out.println(" ■  ║  3 - Transferir valor entre contas     ║  ■ ");
+		     System.out.println(" ■  ║  4 - Atualizar Dados da Conta          ║  ■ ");
+		     System.out.println(" ■  ║  5 - Voltar                            ║  ■ ");
+		     System.out.println(" ■  ║  0 - Sair                              ║  ■ ");
+		     System.out.println(" ■  ╚════════════════════════════════════════╝  ■ ");
+			 System.out.println(" ■                                              ■ ");
+		     System.out.println(" ■■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ");
+		     System.out.println("==================================================");
+		     System.out.println(" Digite a opção desejada:                         ");
+		     System.out.println("==================================================");
+		}
+		
+		public static void menuTransferir() {
+			 System.out.println(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_GREEN_BOLD);
+			 System.out.println(" ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■■ ");
+			 System.out.println(" ■                                              ■ ");
+			 System.out.println(" ■  ╔════════════════════════════════════════╗  ■ ");
+			 System.out.println(" ■  ║                                        ║  ■ ");
+		     System.out.println(" ■  ║          BANCO DO BRAZIL COM Z         ║  ■ ");
+		     System.out.println(" ■  ║                                        ║  ■ ");
+		     System.out.println(" ■  ╠════════════════════════════════════════╣  ■ ");
+		     System.out.println(" ■  ║  1 - Listar todas as contas            ║  ■ ");
+		     System.out.println(" ■  ║  2 - Buscar Conta por Número           ║  ■ ");
+		     System.out.println(" ■  ║  0 - Voltar                            ║  ■ ");
+		     System.out.println(" ■  ╚════════════════════════════════════════╝  ■ ");
+			 System.out.println(" ■                                              ■ ");
+		     System.out.println(" ■■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ");
+		     System.out.println("==================================================");
+		     System.out.println(" Digite a opção desejada:                         ");
+		     System.out.println("==================================================");
+		}
+	
+
 	public static void sobre() {
 		System.out.println("\n*********************************************************");
 		System.out.println("Projeto Desenvolvido por: Eduardo Tosta");
@@ -175,5 +240,7 @@ public class Menu {
   
  		}
  	}
+	
+	
 
 }

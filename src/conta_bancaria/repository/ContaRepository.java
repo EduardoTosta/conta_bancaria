@@ -15,4 +15,5 @@ public interface ContaRepository {
 	public void sacar(int numero, double valor);
 	public void depositar(int numero, double valor);
 	public void transferir(int numeroOrigem, int numeroDestino, double valor);
+	public Conta acessar(int numero);
 }
