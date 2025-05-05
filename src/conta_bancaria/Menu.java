@@ -16,9 +16,9 @@ public class Menu {
 		
 		ContaController conta = new ContaController();
 		
-		int opcao, numero, agencia, tipo, aniversario;
+		int opcao, numero, agencia, tipo, aniversario, numeroDestino = 0;
 		String titular;
-		double saldo, limite;
+		double saldo, limite, valor;
 		
 		//dados de contas para testes
 		ContaCorrente cc1 = new ContaCorrente(conta.gerarNumero(), 123, 1, "João da Silva", 1000.00f, 100.00f);
@@ -49,8 +49,6 @@ public class Menu {
 						switch(opcaoMenuPrincipal) {
 						case 1:
 							System.out.println("DEPÓSITO");
-				            System.out.print("Digite o número da conta: ");
-				            numero = leia.nextInt();
 				            
 				            System.out.print("Digite o valor do depósito: ");
 				            saldo = leia.nextDouble();
@@ -62,9 +60,7 @@ public class Menu {
 						
 						case 2:
 							System.out.println("SAQUE");
-				            System.out.print("Digite o número da conta: ");
-				            numero = leia.nextInt();
-				            
+
 				            System.out.print("Digite o valor do saque: ");
 				            saldo = leia.nextDouble();
 				            
@@ -74,7 +70,16 @@ public class Menu {
 				            break;
 						
 						case 3:
+							System.out.println("TRANSFERÊNCIA");
+							System.out.println("Digite o numero da conta de destino: ");
+							numeroDestino = leia.nextInt();
 							
+							System.out.println("Digite o valor: ");
+							valor = leia.nextDouble();
+							
+							numero = numero;
+							
+							conta.transferir(numero, numeroDestino, valor);
 							keyPress();
 							break;
 							
@@ -120,9 +125,18 @@ public class Menu {
 							break;
 						
 						case 5:
+							contaLogada.get().vizualizar();
+
+				            keyPress();
+							break;
+						
+						case 6:
 				            System.out.println("VOLTANDO AO MENU ANTERIOR...");
-				            return; // volta para o menu anterior
+				             // volta para o menu anterior
 				            
+				            keyPress();
+							break;
+							
 						case 0:
 				            System.out.println("SAINDO DO SISTEMA...");
 				            leia.close();
@@ -224,7 +238,8 @@ public class Menu {
 		     System.out.println(" ■  ║  2 - Sacar                             ║  ■ ");
 		     System.out.println(" ■  ║  3 - Transferir valor entre contas     ║  ■ ");
 		     System.out.println(" ■  ║  4 - Atualizar Dados da Conta          ║  ■ ");
-		     System.out.println(" ■  ║  5 - Voltar                            ║  ■ ");
+		     System.out.println(" ■  ║  5 - Vizualizar Dados da Conta         ║  ■ ");
+		     System.out.println(" ■  ║  6 - Voltar                            ║  ■ ");
 		     System.out.println(" ■  ║  0 - Sair                              ║  ■ ");
 		     System.out.println(" ■  ╚════════════════════════════════════════╝  ■ ");
 			 System.out.println(" ■                                              ■ ");

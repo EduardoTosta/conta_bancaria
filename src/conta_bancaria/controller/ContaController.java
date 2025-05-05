@@ -1,5 +1,6 @@
 package conta_bancaria.controller;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -14,6 +15,8 @@ public class ContaController implements ContaRepository{
 	//Variável para controlar o numero das contas
 	int numero = 0;
 
+	
+	//Metodos CRUD
 	@Override
 	public void procurarPorNumero(int numero) {
 		Optional<Conta> conta = buscarNaCollection(numero);
@@ -62,23 +65,57 @@ public class ContaController implements ContaRepository{
 			System.out.printf("\n A conta numero: %d não foi encontrada!", numero);
 	}
 
+	//Metodos bancários
 	@Override
 	public void sacar(int numero, double valor) {
-		// TODO Auto-generated method stub
+		Optional<Conta> conta = buscarNaCollection(numero);
+		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
+		
+		if(conta.isPresent()) {
+			if(conta.get().sacar(valor))
+				System.out.printf("\nO saque de: %s foi efetuado com sucesso na conta %d!",nfMoeda.format(valor), numero);
+		}else {
+			System.out.printf("\n A conta numero: %d não foi encontrada!", numero);
+		}
+			
 		
 	}
 
 	@Override
 	public void depositar(int numero, double valor) {
-		// TODO Auto-generated method stub
+		Optional<Conta> conta = buscarNaCollection(numero);
+		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
+		
+		if(conta.isPresent()) {
+			conta.get().depositar(valor);
+			System.out.printf("\nO depósito de: %s foi efetuado com sucesso na conta %d!",nfMoeda.format(valor), numero);
+		}else {
+			System.out.printf("\n A conta numero: %d não foi encontrada!", numero);
+		}
+			
 		
 	}
 
 	@Override
 	public void transferir(int numeroOrigem, int numeroDestino, double valor) {
-		// TODO Auto-generated method stub
+		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
+		Optional<Conta> contaOrigem = buscarNaCollection(numeroOrigem);
+		Optional<Conta> contaDestino = buscarNaCollection(numeroDestino);
 		
+		
+		if(contaOrigem.isPresent() && contaDestino.isPresent()) {
+			if(contaOrigem.get().sacar(valor)) {
+				contaDestino.get().depositar(valor);
+				System.out.printf("\nA transferência de %s da conta $d para a conta %d foi efetuado com sucesso!",nfMoeda.format(valor), numeroOrigem, numeroDestino);
+			}
+	
+			
+		}else {
+			System.out.printf("\n A conta numero: %d não foi encontrada!", numero);
+		}
 	}
+	
+	
 	//Métodos Auxiliares
 	
 	public int gerarNumero() {
