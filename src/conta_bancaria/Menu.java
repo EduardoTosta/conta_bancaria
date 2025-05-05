@@ -279,7 +279,6 @@ public class Menu {
 	
 	//Antes de cada break do switch case, deve-se colocar uma chamada para o KeyPress
 	public static void keyPress() {
-   	 
  		try {
   
  			System.out.println(Cores.TEXT_RESET + "\n\nPressione Enter para Continuar...");
