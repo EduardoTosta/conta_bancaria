@@ -1,5 +1,6 @@
 package conta_bancaria;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Scanner;
 
 import conta_bancaria.model.Conta;
@@ -13,17 +14,17 @@ public class Menu {
 		
 		Scanner leia = new Scanner(System.in);
 		
-		ContaController contas = new ContaController();
+		ContaController conta = new ContaController();
 		
 		int opcao, numero, agencia, tipo, aniversario;
 		String titular;
 		double saldo, limite;
 		
 		//dados de contas para testes
-		ContaCorrente cc1 = new ContaCorrente(contas.gerarNumero(), 123, 1, "João da Silva", 1000.00f, 100.00f);
-		contas.cadastrar(cc1);
-		ContaPoupanca cp1 = new ContaPoupanca(contas.gerarNumero(), 123, 2, "Maria da Silva", 1000.00f, 12);
-		contas.cadastrar(cp1);
+		ContaCorrente cc1 = new ContaCorrente(conta.gerarNumero(), 123, 1, "João da Silva", 1000.00f, 100.00f);
+		conta.cadastrar(cc1);
+		ContaPoupanca cp1 = new ContaPoupanca(conta.gerarNumero(), 123, 2, "Maria da Silva", 1000.00f, 12);
+		conta.cadastrar(cp1);
 		
 		
 		while(true) {
@@ -36,10 +37,10 @@ public class Menu {
 				System.out.println("Digite o numero da conta que deseja Acessar: ");
 				numero = leia.nextInt();
 
-				Conta contaLogada = contas.acessar(numero);
+				Optional<Conta> contaLogada = conta.acessar(numero);
 				keyPress();
 				
-				if(contaLogada != null) {
+				if(contaLogada.isPresent()) {
 					int opcaoMenuPrincipal;
 					while(true) {
 						menuPrincipal();
@@ -54,7 +55,7 @@ public class Menu {
 				            System.out.print("Digite o valor do depósito: ");
 				            saldo = leia.nextDouble();
 				            
-				            contas.depositar(numero, saldo);
+				            conta.depositar(numero, saldo);
 				            
 				            keyPress();
 				            break;
@@ -67,7 +68,7 @@ public class Menu {
 				            System.out.print("Digite o valor do saque: ");
 				            saldo = leia.nextDouble();
 				            
-				            contas.sacar(numero, saldo);
+				            conta.sacar(numero, saldo);
 				            
 				            keyPress();
 				            break;
@@ -78,6 +79,42 @@ public class Menu {
 							break;
 							
 						case 4:
+							System.out.println("Atualizar Dados");
+							
+							System.out.println("Digite o número da conta");
+							numero = leia.nextInt();
+							
+							Optional <Conta> buscarConta = conta.buscarNaCollection(numero);
+							
+							if(buscarConta.isPresent()) {
+								System.out.println("Digite o número da Agência:");
+								agencia = leia.nextInt();
+
+								System.out.println("Digite o nome do Titular:");
+								leia.skip("\\R");
+								titular = leia.nextLine();
+								
+								tipo = buscarConta.get().getTipo();
+								
+								System.out.println("Digite o saldo inicial da conta:");
+								saldo = leia.nextFloat();
+								
+								switch(tipo) {
+								case 1 ->{
+										System.out.println("Digite o limite da conta: ");
+										limite = leia.nextDouble();
+										conta.cadastrar(new ContaCorrente(numero, agencia, tipo, titular, saldo, limite));
+									}
+								case 2->{
+										System.out.println("Digite o dia de aniversário da conta: ");
+										aniversario = leia.nextInt();
+										conta.cadastrar(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
+									}
+								}
+
+							}else {
+								System.out.printf("\n A conta %d não existe!", numero);
+							}
 							
 							keyPress();
 							break;
@@ -124,12 +161,12 @@ public class Menu {
 				case 1 ->{
 						System.out.println("Digite o limite da conta: ");
 						limite = leia.nextDouble();
-						contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
+						conta.cadastrar(new ContaCorrente(conta.gerarNumero(), agencia, tipo, titular, saldo, limite));
 					}
 				case 2->{
 						System.out.println("Digite o dia de aniversário da conta: ");
 						aniversario = leia.nextInt();
-						contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
+						conta.cadastrar(new ContaPoupanca(conta.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
 					}
 				}
 				

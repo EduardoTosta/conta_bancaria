@@ -1,5 +1,7 @@
 package conta_bancaria.repository;
 
+import java.util.Optional;
+
 import conta_bancaria.model.Conta;
 
 public interface ContaRepository {
@@ -15,5 +17,5 @@ public interface ContaRepository {
 	public void sacar(int numero, double valor);
 	public void depositar(int numero, double valor);
 	public void transferir(int numeroOrigem, int numeroDestino, double valor);
-	public Conta acessar(int numero);
+	public Optional<Conta> acessar(int numero);
 }
