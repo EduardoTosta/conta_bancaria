@@ -16,7 +16,7 @@ public class Menu {
 		
 		ContaController conta = new ContaController();
 		
-		int opcao, numero, agencia, tipo, aniversario, numeroDestino = 0;
+		int opcao, numero, agencia, tipo, aniversario, numeroDestino;
 		String titular;
 		double saldo, limite, valor;
 		
@@ -70,15 +70,14 @@ public class Menu {
 				            break;
 						
 						case 3:
-							System.out.println("TRANSFERÊNCIA");
+							System.out.println("TRANSFERÊNCIA");		
 							System.out.println("Digite o numero da conta de destino: ");
 							numeroDestino = leia.nextInt();
 							
 							System.out.println("Digite o valor: ");
 							valor = leia.nextDouble();
 							
-							numero = numero;
-							
+
 							conta.transferir(numero, numeroDestino, valor);
 							keyPress();
 							break;

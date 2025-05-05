@@ -101,12 +101,12 @@ public class ContaController implements ContaRepository{
 		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
 		Optional<Conta> contaOrigem = buscarNaCollection(numeroOrigem);
 		Optional<Conta> contaDestino = buscarNaCollection(numeroDestino);
-		
+
 		
 		if(contaOrigem.isPresent() && contaDestino.isPresent()) {
 			if(contaOrigem.get().sacar(valor)) {
 				contaDestino.get().depositar(valor);
-				System.out.printf("\nA transferência de %s da conta $d para a conta %d foi efetuado com sucesso!",nfMoeda.format(valor), numeroOrigem, numeroDestino);
+				System.out.printf("\nA transferência de %s da conta %d para a conta %d foi efetuado com sucesso!",nfMoeda.format(valor), numeroOrigem, numeroDestino);
 			}
 	
 			
@@ -117,7 +117,6 @@ public class ContaController implements ContaRepository{
 	
 	
 	//Métodos Auxiliares
-	
 	public int gerarNumero() {
 		return ++ numero;
 	}
