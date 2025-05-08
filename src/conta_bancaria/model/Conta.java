@@ -2,6 +2,8 @@ package conta_bancaria.model;
 
 import java.text.NumberFormat;
 
+import conta_bancaria.util.Cores;
+
 public abstract class Conta {
 	
 	//Atributos da Classe
@@ -53,18 +55,40 @@ public abstract class Conta {
 			case 1 -> tipo = "Conta Corrente";
 			case 2 -> tipo = "Conta Poupança";
 			default -> tipo = "Inválido";
-		}
-		System.out.println("**************************************************");
-		System.out.println("                 DADOS DA CONTA                   ");
-		System.out.println("**************************************************");
-		System.out.println("Número da Conta:      " + this.numero);
-		System.out.println("Número da Agência:    " + this.agencia);
-		System.out.println("Tipo da conta:        " + tipo);
-		System.out.println("Titular da conta:     " + this.titular);
-		System.out.println("Saldo da conta:       " + nfMoeda.format(this.saldo));
+		}    
+		    System.out.print(Cores.TEXT_GREEN_BOLD);
+		    System.out.println("╔═══════════════════════════════════════════╗");
+		    System.out.println("║                                           ║");
+		    System.out.println("║           Banco do Brasil com Z           ║");
+		    System.out.println("║                                           ║");
+
+		    System.out.print(Cores.TEXT_CYAN_BOLD);
+		    System.out.println("║              DADOS DA CONTA               ║");
+		    System.out.println("║   ╔═══════════════════════════════════╗   ║");
+		    System.out.println("║   ║                                   ║   ║");
+		    System.out.println(Cores.TEXT_CYAN_BOLD+"║   ║ Número da Conta:   " + Cores.TEXT_WHITE_BOLD + this.numero + espacosFinais(Integer.toString(this.numero), 15)             + Cores.TEXT_CYAN_BOLD  + "║   ║");
+		    System.out.println(Cores.TEXT_CYAN_BOLD+"║   ║ Número da Agência: " + Cores.TEXT_WHITE_BOLD + this.agencia + espacosFinais(Integer.toString(this.agencia), 15)           + Cores.TEXT_CYAN_BOLD  + "║   ║");
+		    System.out.println(Cores.TEXT_CYAN_BOLD+"║   ║ Tipo da conta:     " + Cores.TEXT_WHITE_BOLD + tipo + espacosFinais(tipo, 15)                                             + Cores.TEXT_CYAN_BOLD  + "║   ║");
+		    System.out.println(Cores.TEXT_CYAN_BOLD+"║   ║ Titular da conta:  " + Cores.TEXT_WHITE_BOLD + this.titular + espacosFinais(this.titular, 15)                             + Cores.TEXT_CYAN_BOLD  + "║   ║");
+		    System.out.println(Cores.TEXT_CYAN_BOLD+"║   ║ Saldo da conta:    " + Cores.TEXT_WHITE_BOLD + nfMoeda.format(this.saldo) + espacosFinais(nfMoeda.format(this.saldo), 15) + Cores.TEXT_CYAN_BOLD  + "║   ║");
+		    System.out.println(Cores.TEXT_CYAN_BOLD+"║   ║                                   ║   ║");
+		    System.out.println(Cores.TEXT_CYAN_BOLD+"║   ╚═══════════════════════════════════╝   ║");
+
+		    System.out.print(Cores.TEXT_GREEN_BOLD);
+		    System.out.println("║                                           ║");
+		    System.out.println("╚═══════════════════════════════════════════╝");
+		    System.out.print(Cores.TEXT_RESET);
 	}
 	
-	
+	public static String espacosFinais(String texto, int larguraDesejada) {
+	    int quantidadeEspacos = larguraDesejada - texto.length();
+	    StringBuilder espacos = new StringBuilder();
+	    for (int i = 0; i < quantidadeEspacos; i++) {
+	        espacos.append(" ");
+	    }
+	    return espacos.toString();
+	}
+
 	//Getters e Setters
 	public int getNumero() {
 		return numero;

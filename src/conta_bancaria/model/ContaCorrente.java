@@ -2,6 +2,8 @@ package conta_bancaria.model;
 
 import java.text.NumberFormat;
 
+import conta_bancaria.util.Cores;
+
 public class ContaCorrente extends Conta{
 	
 	private double limite;
@@ -27,7 +29,9 @@ public class ContaCorrente extends Conta{
 	public void vizualizar() {
 		super.vizualizar();
 		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
-		System.out.println("Limite da conta:      " + nfMoeda.format(this.limite));
+		System.out.println(Cores.TEXT_PURPLE_BOLD+"*********************************************");
+		System.out.println(Cores.TEXT_GREEN_BOLD +"Limite da conta:      " + nfMoeda.format(this.limite));
+		System.out.println(Cores.TEXT_PURPLE_BOLD+"*********************************************");
 	}
 	
 

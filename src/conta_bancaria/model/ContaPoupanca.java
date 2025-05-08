@@ -1,6 +1,8 @@
 package conta_bancaria.model;
 import java.time.LocalDate;
 
+import conta_bancaria.util.Cores;
+
 public class ContaPoupanca extends Conta {
 	
 	private int diaAniversario;
@@ -40,7 +42,9 @@ public class ContaPoupanca extends Conta {
 	public void vizualizar() {
 		calculoJuros();
 		super.vizualizar();
-		System.out.println("Aniversário da conta:       " + this.diaAniversario);
+		System.out.println(Cores.TEXT_PURPLE_BOLD+"*********************************************");
+		System.out.println(Cores.TEXT_GREEN_BOLD +"Dia de aniversário da conta:       " + this.diaAniversario);
+		System.out.println(Cores.TEXT_PURPLE_BOLD+"*********************************************");
 	}
 	
 	

@@ -19,6 +19,8 @@ public class ContaController implements ContaRepository{
 
 	
 	//Metodos CRUD
+	
+	//Procura pelo numero da conta
 	@Override
 	public void procurarPorNumero(int numero) {
 		Optional<Conta> conta = buscarNaCollection(numero);
@@ -29,13 +31,14 @@ public class ContaController implements ContaRepository{
 			System.out.printf("\n A conta numero: %d não foi encontrada!", numero);
 	}
 
+	//Lista todas as contas
 	@Override
 	public void listarTodas() {
 		for(var conta : listaContas) {
 			conta.vizualizar();
 		}
 	}
-	
+	//Lista as contas pelo nome do titular
 	@Override
 	public void listarPorTitular(String titular) {
 		List<Conta> listaTitulares = listaContas.stream()
@@ -50,12 +53,14 @@ public class ContaController implements ContaRepository{
 			conta.vizualizar();
 	}
 	
+	//Cadastra um onjeto conta no array
 	@Override
 	public void cadastrar(Conta conta) {
 		listaContas.add(conta);
 		System.out.println("A Conta foi criada com sucesso!");
 	}
 
+	//Atualiza os dados de um objeto conta
 	@Override
 	public void atualizar(Conta conta) {
 		Optional<Conta> buscaConta = buscarNaCollection(conta.getNumero());
@@ -67,7 +72,8 @@ public class ContaController implements ContaRepository{
 			System.out.printf("\n A conta numero: %d não foi encontrada!", conta.getNumero());
 		
 	}
-
+	
+	//Delete um objeto conta do array
 	@Override
 	public void deletar(int numero) {
 		Optional<Conta> conta = buscarNaCollection(numero);
@@ -80,9 +86,12 @@ public class ContaController implements ContaRepository{
 	}
 
 	//Metodos bancários
+	
+	//Subtrai valor da váriavel saldo
 	@Override
 	public void sacar(int numero, double valor) {
 		Optional<Conta> conta = buscarNaCollection(numero);
+		//Converte a váriavel valor para uma string (Para fins visuais)
 		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
 		
 		if(conta.isPresent()) {
@@ -91,13 +100,13 @@ public class ContaController implements ContaRepository{
 		}else {
 			System.out.printf("\n A conta numero: %d não foi encontrada!", numero);
 		}
-			
-		
 	}
-
+	
+	//Adciona valor na váriavel saldo
 	@Override
 	public void depositar(int numero, double valor) {
 		Optional<Conta> conta = buscarNaCollection(numero);
+		//Converte a váriavel valor para uma string (Para fins visuais)
 		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
 		
 		if(conta.isPresent()) {
@@ -110,31 +119,33 @@ public class ContaController implements ContaRepository{
 		
 	}
 
+	//Retira valor da váriavel saldo de um objeto conta e envia para outro
 	@Override
 	public void transferir(int numeroOrigem, int numeroDestino, double valor) {
+		//Converte a váriavel valor para uma string (Para fins visuais)
 		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
+		//Cria um optional para conta de origem e de destino, facilitando o acesso aos metodos
 		Optional<Conta> contaOrigem = buscarNaCollection(numeroOrigem);
 		Optional<Conta> contaDestino = buscarNaCollection(numeroDestino);
 
-		
 		if(contaOrigem.isPresent() && contaDestino.isPresent()) {
 			if(contaOrigem.get().sacar(valor)) {
 				contaDestino.get().depositar(valor);
 				System.out.printf("\nA transferência de %s da conta %d para a conta %d foi efetuado com sucesso!",nfMoeda.format(valor), numeroOrigem, numeroDestino);
-			}
-	
-			
+			}		
 		}else {
 			System.out.printf("\n A conta numero: %d não foi encontrada!", numero);
 		}
 	}
 	
-	
 	//Métodos Auxiliares
+	
+	//Cria um numero para cada conta criada
 	public int gerarNumero() {
 		return ++ numero;
 	}
 	
+	//Usado para procurar contas no array
 	public Optional <Conta> buscarNaCollection(int numero) {
 		for(var conta: listaContas) {
 			if(conta.getNumero() == numero)
@@ -143,6 +154,7 @@ public class ContaController implements ContaRepository{
 		return Optional.empty();
 	}
 
+	//Acessa as informações da conta acessada
 	@Override
 	public Optional <Conta> acessar(int numero) {
 	    Optional<Conta> conta = buscarNaCollection(numero);
