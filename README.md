@@ -76,7 +76,10 @@ ContaPoupanca --> Conta
 ## 4. Menu do Sistema
 
 <div align="center">
-   <img src= https://i.ibb.co/FqCbp69w/menu-console.png title="Exemplo do menu no console" width="90%"/>
+   <img src= https://i.ibb.co/fVZnXNPK/Whats-App-Image-2025-05-08-at-15-36-54.jpg title="Exemplo do menu de acesso no console" width="90%"/>
+   <img src= https://i.ibb.co/sptV7ySP/Whats-App-Image-2025-05-08-at-15-37-24.jpg title="Exemplo do menu principal no console" width="90%"/>
+   <img src= https://i.ibb.co/mPyLBWs/Whats-App-Image-2025-05-08-at-15-37-14.jpg  title="Exemplo do menu de dados da conta no console" width="90%"/>
+
 </div>
 
 ---
